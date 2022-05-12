@@ -16,8 +16,10 @@ simlpenet = "./tmp/simplenet.pth"
 
 if torch.cuda.is_available():
     device = torch.device("cuda")
+    print("Device CUDA")
 else:
     device = torch.device("cpu")
+    print("Device cpu")
 
 transfer_model.to(device)
 train_losses = []
@@ -124,7 +126,7 @@ test_data_path = dirname + '/test/'
 test_data = ImageFolder(root=test_data_path,
                          transform=img_transfors,
                          is_valid_file=check_image)
-batch_size = 64
+batch_size = 32
 train_data_loader = torch.utils.data.DataLoader(train_data, batch_size=batch_size, shuffle=True)
 val_data_loader = torch.utils.data.DataLoader(val_data, batch_size=batch_size, shuffle=True)
 test_data_loader = torch.utils.data.DataLoader(test_data, batch_size=batch_size, shuffle=True)
@@ -138,7 +140,7 @@ print(len(val_data_loader.dataset))
 transfer_model.to(device)
 optimizer = optim.Adam(transfer_model.parameters(), lr=0.001)
 
-train(transfer_model, optimizer, torch.nn.CrossEntropyLoss(), train_data_loader, val_data_loader, test_data_loader, epochs=20,
+train(transfer_model, optimizer, torch.nn.CrossEntropyLoss(), train_data_loader, val_data_loader, test_data_loader, epochs=40,
       device=device)
 
 torch.save(transfer_model.state_dict(), simlpenet)
