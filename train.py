@@ -4,7 +4,7 @@ import torch
 import torch.optim as optim
 import torch.utils.data
 import torch.nn.functional as F
-from ChessModel import transfer_model
+from ChessModelResize import transfer_model
 
 from torchvision import transforms
 from PIL import Image
@@ -96,7 +96,7 @@ def check_image(path):
 
 
 
-dirname = 'c:\chessImages'
+dirname = 'c:\chessResize'
 
 
 train_data_path = dirname + '/train/'
